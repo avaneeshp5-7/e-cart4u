@@ -1,0 +1,30 @@
+<!-- <div class="row">
+    <div class="col-md-6">
+        <form style="margin-left: 590px;" name="frm">
+        From Date :
+        <ng-datepicker [options]="f_option" name="d1" [(ngModel)]="fdate">
+        </ng-datepicker><br>
+        To date :
+        <ng-datepicker [options]="l_option" name="d2" [(ngModel)]="tdate">
+        </ng-datepicker><br>
+        <input type="button" class="btn btn-primary" value="Find" style="border-radius: 0px;" (click)="fun_date_wise()">
+        </form>
+    </div>
+    <input type="date" id="start" name="trip"
+               value="2018-07-22"
+               min="2018-01-01" max="2018-12-31" />
+</div> -->
+<div class="row">
+        <div class="col-md-6">
+            <form style="margin-left: 590px;" name="frm" >
+            From Date :
+            <input type="date" id="FromDate" name="FromDate" 
+             class="date" [(ngModel)]="fdate" format="DD-MM-YYYY" />
+           <br>
+            To date :
+            <input type="date" id="FromDate" name="FromDate" 
+             class="date" [(ngModel)]="tdate" />
+            <input type="button" class="btn btn-primary" value="Find" style="border-radius: 0px;" (click)="fun_date_wise()">
+            </form>
+        </div>
+    </div>

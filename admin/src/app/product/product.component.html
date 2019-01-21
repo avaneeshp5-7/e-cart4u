@@ -1,0 +1,248 @@
+<div class="container-fliud" style="margin-left: 20px;">
+    <h1 id="prdhad">Add Prducts</h1>
+    <form name="frmprd" id="prdfrm" #frm4="ngForm">
+        <div class="row">
+            <div class="col-md-2">
+                <select name="catid" id="catsel" [(ngModel)]="t1" (change)="funScat()" #pp1="ngModel" required class="form-control txt2">
+                    <option value="">---Select Category---</option>
+                    <option *ngFor="let pc of pcatrec" value="{{pc._id}}">{{pc.cname}}</option>
+                </select>
+                <span *ngIf="pp1.errors && pp1.errors.required"> {{msg5}}</span>
+            </div>
+            <div class="col-md-2">
+                <select name="scatid" id="scatsel" [(ngModel)]="t2" (change)="ssChange()" #pp2="ngModel" required class="form-control txt2">
+                    <option value="">---Select Sub---</option>
+                    <option *ngFor="let sc of pscatrec" value="{{sc._id}}">{{sc.scatname}}</option>
+                </select>
+                <span *ngIf="pp2.errors && pp2.errors.required"> {{msg6}}</span>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-md-4">
+                <select name="ss3" [(ngModel)]="ssub" (change)="funBrand()" class="form-control" style="border-radius: 0px" #pp22="ngModel"
+                    required>
+                    <option value="">---Select Ssub cat--</option>
+                    <option *ngFor="let sscat of ssubrec" value="{{sscat._id}}">
+                        {{sscat.subscatname}}
+                    </option>
+                </select>
+                <span *ngIf="pp22.errors && pp22.errors.required"> {{msg9}}</span>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-md-2">
+                <select name="brdtid" id="brdsel" [(ngModel)]="t3" #pp3="ngModel" required class="form-control txt2">
+                    <option value="">---Select Brand---</option>
+                    <option *ngFor="let bsc of brdtrec" value="{{bsc._id}}">{{bsc.Brand}}</option>
+                </select>
+                <span *ngIf="pp3.errors && pp3.errors.required"> {{msg7}}</span>
+            </div>
+            <div class="col-md-2">
+                <input type="text" class="form-control txt2" id="prd1" placeholder="Produc Name" name="prdn" [(ngModel)]="t4" #tt1="ngModel"
+                    required>
+                <span *ngIf="tt1.errors && tt1.errors.required" style="position: absolute;"> {{msg1}}</span>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-md-2">
+                <input type="text" class="form-control txt2" id="prd2" placeholder="Produc Price" name="prdp" [(ngModel)]="t5" #tt2="ngModel"
+                    required>
+                <span *ngIf="tt2.errors && tt2.errors.required"> {{msg2}}</span>
+                <br>
+            </div>
+            <div class="col-md-2">
+                <input [(colorPicker)]="t6" class="form-control txt2" id="prd3" placeholder="Produc Color" name="prdc" [(ngModel)]="t6" #tt3="ngModel"
+                    required>
+                <span *ngIf="tt3.errors && tt3.errors.required">{{msg3}}</span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2">
+                <select class="form-control txt2" id="upnm" name="prddd" [(ngModel)]="upco" #unm="ngModel" required>
+                    <option value="">-- Select Type --</option>
+                    <option>Regular</option>
+                    <option>New_Product</option>
+                    <option>Upcomming_Soon</option>
+                </select>
+                <span *ngIf="unm.errors && unm.errors.required"> {{nm}}</span>
+            </div>
+            <div class="col-md-2">
+                <input type="text" class="form-control txt2" id="prd4" placeholder="Description" name="prdd" [(ngModel)]="t7" #tt4="ngModel"
+                    required>
+                <span *ngIf="tt4.errors && tt4.errors.required"> {{msg4}}</span>
+            </div>
+        </div>
+        <br>
+        <!-- qantity and offer -->
+        <div class="row">
+            <div class="col-md-2">
+                <input type="number" class="form-control txt2" id="prdr" placeholder="Add Rating" name="prdnn" [(ngModel)]="rat" #ttr="ngModel"
+                    required>
+                <span *ngIf="ttr.errors && ttr.errors.required" style="position: absolute;"> {{msg1}}</span>
+            </div>
+            <div class="col-md-2">
+                <input type="number" class="form-control txt2" id="prdi" placeholder="Add Quantity" name="prdnn" [(ngModel)]="quantity" #ttq="ngModel"
+                    required>
+                <span *ngIf="ttq.errors && ttq.errors.required" style="position: absolute;"> {{msg1}}</span>
+            </div>
+        </div>
+        <br>
+        <!-- ===============File Upload On Project folder======================== -->
+        <div class="row">
+            <div class="col-md-4">
+                <form method="post" action="http://localhost:3000/uploads" id="frm" name="ffm" enctype="multipart/form-data">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <input type="file" class="" name="filename">
+                        </div>
+                        <div class="col-md-2" style="float: right;margin-right:100px;">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-md-4">
+                <input type="button" class="form-control txt2 btnprd" value="Add Product" (click)="funAddProd(frm4)">
+            </div>
+        </div>
+        <br>
+        <form action="" class="search-form">
+            <div class="form-group has-feedback">
+                <label for="search" class="sr-only">Search</label>
+                <input type="text" class="form-control" [(ngModel)]="psrch" name="search" id="search" placeholder="search">
+                <span class="glyphicon glyphicon-search form-control-feedback"></span>
+            </div>
+        </form>
+    </form>
+    <div>
+        <table class="table table-bordered responsive tbl1">
+            <tr>
+                <th>ID</th>
+                <th>Category</th>
+                <th>Subcategory</th>
+                <th>Subsubcategory</th>
+                <th>Brand</th>
+                <th (click)="proSort('pname')">Product
+                    <span class="glyphicon sort-icon spn" [ngClass]="{'glyphicon-chevron-up':pord,'glyphicon-chevron-down':!pord}"></span>
+                </th>
+                <th>price</th>
+                <th>Color</th>
+                <th>New/Upcomming</th>
+                <th>Description</th>
+                <th>Status</th>
+                <th>Quantity</th>
+                <th>Rating</th>
+                <th>Images</th>
+                <th>delete/Update</th>
+                <th>Offer</th>
+                <th>Add Images</th>
+            </tr>
+            <tr *ngFor="let prec of progetrec | orderBy:keyval:pord | filter:psrch | paginate:{itemsPerPage:10,currentPage:prpage} ;let i='index'">
+                <td *ngIf="prec._id!=pglid;else ptemp">{{i+1}}</td>
+                <td *ngIf="prec._id!=pglid">{{prec.cname}}</td>
+                <td *ngIf="prec._id!=pglid">{{prec.scatname}}</td>
+                <td *ngIf="prec._id!=pglid">{{prec.subscatname}}</td>
+                <td *ngIf="prec._id!=pglid">{{prec.Brand}}</td>
+                <td *ngIf="prec._id!=pglid">{{prec.pname}}</td>
+                <td *ngIf="prec._id!=pglid">{{prec.pprice}}</td>
+                <td *ngIf="prec._id!=pglid">{{prec.pcolor}}</td>
+                <td *ngIf="prec._id!=pglid">{{prec.upcoming}}</td>
+                <td *ngIf="prec._id!=pglid">{{prec.pdesc}}</td>
+                <td *ngIf="prec._id!=pglid">{{prec.active}}<br>
+                    <span *ngIf="prec.active==1; else atmp">
+                         <input type="button" class="btn btn-primary" value="Inactive" (click)="deactive(prec._id)">
+                    </span>
+                    <ng-template #atmp>
+                            <input type="button" class="btn btn-primary" value="active" (click)="adctivate(prec._id)">
+                    </ng-template>
+                </td>
+                <td *ngIf="prec._id!=pglid">{{prec.quantity}}</td>
+                <td *ngIf="prec._id!=pglid">{{prec.rating}}</td>
+                <td *ngIf="prec._id!=pglid">
+                    <img src="http://localhost:4500/assets/uploads/{{prec.images}}" width="40px">
+                </td>
+                <td *ngIf="prec._id!=pglid">
+                    <input type="button" value="Delete" class="btn btn-danger" (click)="funPdell(prec._id)"> &nbsp;
+                    <input type="button" value="Update" class="btn btn-warning" (click)="UpdPro(prec)">
+                </td>
+                <td *ngIf="prec._id!=pglid">
+                    <input type="button" class="btn btn-primary" value="Add Offer" (click)="addoffer(prec)">
+                </td>
+                <td *ngIf="prec._id!=pglid">
+                    <input type="button" class="btn btn-primary" value="add more images" (click)="addmoreimg(prec)">
+                </td>
+            </tr>
+        </table>
+        <div style="margin-left:410px;">
+            <pagination-controls (pageChange)=" prpage = $event"></pagination-controls>
+        </div>
+        <form name="frrm" #frrrr="ngForm">
+            <ng-template #ptemp>
+                <td>{{pglid}}</td>
+                <td>
+                    <select [(ngModel)]="cat" class="form-control" (change)="funScat1()" name="tt33" #up33="ngModel" required>
+                        <option value="">- Ctegory Select-</option>
+                        <option *ngFor="let cp of pcatrec" value="{{cp._id}}">{{cp.cname}}</option>
+                    </select>
+                </td>
+                <td>
+                    <select [(ngModel)]="sc" class="form-control" name="tt22" (change)="ssubChnge()" #up22="ngModel" required>
+                        <option value="">-Sub Select-</option>
+                        <option *ngFor="let scp of pscatrec1" value="{{scp._id}}">{{scp.scatname}}</option>
+                    </select>
+                </td>
+                <td>
+                    <select [(ngModel)]="ssc" class="form-control" name="tt22" (change)="funBrd1()" #up22="ngModel" required>
+                        <option value="">-Sub Sub Select-</option>
+                        <option *ngFor="let sscp of ssubrec2" value="{{sscp._id}}">{{sscp.subscatname}}</option>
+                    </select>
+                </td>
+                <td>
+                    <select [(ngModel)]="bc" class="form-control" name="brdd" #bnd="ngModel" required>
+                        <option value="">-Brands Select-</option>
+                        <option *ngFor="let brp of brdtrec1" value="{{brp._id}}">{{brp.Brand}}</option>
+                    </select>
+                </td>
+                <td>
+                    <input type="text" class="form-control" [(ngModel)]="pro" style="width:100px" name="tt11" #up11="ngModel" required>
+                </td>
+                <td>
+                    <input type="text" class="form-control" [(ngModel)]="price" style="width:100px" name="tt44" #up44="ngModel" required>
+                </td>
+                <td>
+                    <input type="text" class="form-control" [(ngModel)]="color" style="width:100px" name="tt55" #up55="ngModel" required>
+                </td>
+                <td>
+                    <input type="text" class="form-control" [(ngModel)]="uppco" style="width:100px" name="tt77" #up77="ngModel" required>
+                </td>
+                <td>
+                    <textarea [(ngModel)]="desc" class="form-control" style="width:100px" name="tt66" #up66="ngModel" required>{{pdesc}}</textarea>
+                </td>
+                <td>{{active}}</td>
+                <td>
+                    <input type="button" value="Save" class="btn btn-success" (click)="funPsave(frrrr)"> &nbsp;
+                    <input type="button" value="Cancel" class="btn btn-primary" (click)="pglid=0">
+                </td>
+                <td>
+                    <div class="col-md-2">
+                        <input type="text" placeholder="Add Offer" name="prdn" [(ngModel)]="txtoffer">
+                        <input type="button" class="btn btn-success" value="Add +" (click)="saveoffer()">
+                        <input type="button" value="Cancel" class="btn btn-primary" (click)="pglid=0">
+                    </div>
+                </td>
+                <td>
+                    <form method="post" action="http://localhost:3000/uploads" id="frm2" name="ffm2" enctype="multipart/form-data">
+                        <input type="file">
+                    </form>
+                    <input type="button" class="btn btn-success" value="SaveImage" (click)="add_more_image()">
+                    <input type="button" value="Cancel" class="btn btn-primary" (click)="pglid=0">
+                </td>
+            </ng-template>
+        </form>
+    </div>
+</div>

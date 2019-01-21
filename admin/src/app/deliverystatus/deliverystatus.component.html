@@ -1,0 +1,30 @@
+<div class="container-fluid">
+  <table class="table" >
+    <tr>
+        <th>SrNo</th>
+      <th>ID</th>
+      <th>User ID</th>
+      <!-- <th>Product Name</th> -->
+      <th>Purchase Date</th>
+      <th>Status</th>
+      <th>Change Status</th>
+    </tr>
+    <tr *ngFor="let purch of purdata;let x='index'">
+      <td>{{x+1}}</td>
+      <td>{{purch._id}}</td>
+      <td>{{purch.userid}}</td>
+      <!-- <td *ngFor="let pp of purch['Products']" >{{pp.pname}}</td> -->
+      <td>{{purch.date}}</td>
+      <td>{{purch.status}}</td>
+      <td >
+        <select [(ngModel)]="delstatus" style="height: 32px;">
+            <option value="" >---Select---</option>
+            <option value="0">Dispatched</option>
+            <option value="1">In Transit</option>
+            <option value="2">Delivered</option>
+        </select> &nbsp;&nbsp;&nbsp;
+        <input type="button" value="Set" class="btn btn-primary" (click)="delState(purch.userid)">
+      </td>
+    </tr>
+  </table>
+</div>

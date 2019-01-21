@@ -1,0 +1,98 @@
+<div class="container-fliud" style="margin-left: 20px;">
+  <h1 id="sbcat">Add SubSub Categories</h1>
+  <div id="subcatdiv">
+      <form name="frmssubcat" id="ssubcatfrm" #frm="ngForm">
+          <select name="scat" (change)="funScatat()" id="scatselc" [(ngModel)]="cid" #s1="ngModel" required class="form-control txt1">
+              <option value="">---Select Category---</option>
+              <option *ngFor="let cat of catrec" value="{{cat._id}}">{{cat.cname}}</option>
+          </select>
+          <span *ngIf="s1.errors && s1.errors.required"> {{msg1}}</span>
+          <br>
+          <br>
+          <select name="scat" id="scatselc" [(ngModel)]="scid" #s2="ngModel" required class="form-control txt1">
+            <option value="">---Select Category---</option>
+            <option *ngFor="let scat of scatrec" value="{{scat._id}}">{{scat.scatname}}</option>
+        </select>
+         <span *ngIf="s2.errors && s2.errors.required"> {{msg2}}</span> 
+        <br>
+        <br>
+          <input type="text" id="sscate" class="form-control txt1" placeholder="SubSb Cat Name" name="ssubcatg" [(ngModel)]="sscnm" #s3="ngModel" required>
+          <span *ngIf="s3.errors && s3.errors.required"> {{msg3}}</span> 
+          <br>
+          <br>
+          <div class="row">
+              <div class="col-md-2">
+                  <input type="button" value="Add SubSub Cat" (click)="funSubsubCat(frm)" class="form-control btnprd" style="width:150px;border:2px solid #0C68A7;border-radius:0px;">
+              </div>
+              <div class="col-md-2" style="margin-left:-20px;">
+                  <form action="" class="search-form">
+                      <div class="form-group has-feedback">
+                          <label for="search" class="sr-only">Search</label>
+                          <input type="text" class="form-control" [(ngModel)]="ssubsrch" name="search" id="search" placeholder="search">
+                            <span class="glyphicon glyphicon-search form-control-feedback"></span>
+                      </div>
+                  </form>
+              </div>
+          </div>
+      </form>
+  </div>
+
+  <table class="table table-bordered tbl1">
+    <tr>
+        <th>ID</th>
+        <th (click)="brnsSort('cname')">Category </th>
+        <th>Sub Category</th>
+        <th (click)="sssubSort('subscatname')">SSubCategory
+            <span class="glyphicon sort-icon spn" [ngClass]="{'glyphicon-chevron-up':ssubsord,'glyphicon-chevron-down':!ssubsord}"></span>
+        </th>
+        <th>Status</th>
+        <th>Update/Status</th>
+        
+    </tr>
+    <tr *ngFor="let sscat of ssrec | orderBy:keyval:ssubsord | filter:ssubsrch | paginate:{itemsPerPage:10,currentPage:ssub};let j='index'">
+        <td *ngIf="sscat._id!=ssgloid;else sstemp">{{j+1}}</td>
+        <td *ngIf="sscat._id!=ssgloid">{{sscat.cname}}</td>
+        <td *ngIf="sscat._id!=ssgloid">{{sscat.scatname}}</td>
+        <td *ngIf="sscat._id!=ssgloid">{{sscat.subscatname}}</td>
+        <td *ngIf="sscat._id!=ssgloid">{{sscat.active}}</td>
+        <td *ngIf="sscat._id!=ssgloid">
+            <input type="button" value="Delete" class="btn btn-danger" (click)="funBdell(sscat._id)">
+       &nbsp;
+            <input type="button" value="Update" class="btn btn-warning" (click)="sscatUpd(sscat)">
+        </td>
+    </tr>
+</table>
+<div style="margin-left:410px;">
+    <pagination-controls (pageChange)=" ssub = $event"></pagination-controls>
+</div>
+</div>
+
+
+<form>
+  <ng-template #sstemp>
+    <td>{{ssgloid}}</td>
+    <td>
+        <select name="sell1" class="form-control" [(ngModel)]="upcat" (change)="cnFunn()" name="ssr3" #btxt3="ngModel" required>
+            <!-- <option value="">-Select-</option> -->
+            <option *ngFor="let scc of catrec" value="{{scc._id}}">{{scc.cname}}</option>
+        </select>
+    </td>
+    <td>      
+        <select name="sell2" class="form-control" [(ngModel)]="upscat" name="br2" #btxt2="ngModel" required>
+            <!-- <option value="">-Select-</option> -->
+            <option value="{{upsb._id}}" *ngFor="let upsb of cnrec">
+                {{upsb.scatname}}
+            </option>
+        </select>
+    </td>
+    <td>
+        <input type="text" class="form-control" [(ngModel)]="upsscat" name="br1" #btxt1="ngModel" required>
+    </td>
+    <td>{{active}}</td>
+   
+    <td>
+        <input type="button" value="Save" class="btn btn-success" (click)="ssubSave(fmm)"> &nbsp;
+        <input type="button" value="Cancel" class="btn btn-primary" (click)="ssgloid=0">
+    </td>
+  </ng-template>
+</form>

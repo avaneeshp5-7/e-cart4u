@@ -1,0 +1,70 @@
+<div class="container-fliud" style="margin-left: 20px;">
+  <h1 id="cathad">Add Categories</h1>
+  <div id="catdiv">
+    <form name="frmcat" id="catfrm" #frm1="ngForm">
+      <input type="text" id="cat" class="form-control txt1" placeholder="Categories" name="catg" [(ngModel)]="cnm" #t1="ngModel"
+        required>
+      <span *ngIf="t1.errors && t1.errors.required">
+        <!-- <img src="valid.png" width="35px" style="position:absolute;left:323px;top:214px;"> -->
+        {{msg}}
+      </span>
+      <br>
+      <br>
+      <div class="row">
+        <div class="col-md-2">
+          <input type="button" value="Add Cat" (click)="funCat(frm1)" name="ctbtn" class="form-control btnprd" style="width:150px;border:2px solid #0C68A7;border-radius:0px;">
+        </div>
+        <div class="col-md-2" style="margin-left:-20px;">
+          <form action="" class="search-form">
+            <div class="form-group has-feedback">
+                <label for="search" class="sr-only">Search</label>
+                <input type="text" class="form-control" [(ngModel)]="srch" name="search" id="search" placeholder="search">
+                  <span class="glyphicon glyphicon-search form-control-feedback"></span>
+            </div>
+        </form>
+        </div>
+      </div>
+    </form>
+    <table class="table table-bordered tbl1">
+      <tr>
+        <th align="center">ID</th>
+        <th align="center" (click)="sortFun('cname')">Cat Name
+          <span class="glyphicon sort-icon spn" [ngClass]="{'glyphicon-chevron-up':ord,'glyphicon-chevron-down':!ord}">
+          </span>
+        </th>
+        <th align="center" (click)="sortFun('active')">Status</th>
+        <th align="center">Update/Delete</th>
+      </tr>
+
+      <tr *ngFor="let rec of getcat | orderBy:key:ord | filter:srch | paginate:{itemsPerPage:10,currentPage:pn};let i='index'">
+        <td *ngIf="rec._id!=globid;else temp">{{i+1}}</td>
+        <td *ngIf="rec._id!=globid">{{rec.cname}}
+          <td *ngIf="rec._id!=globid">{{rec.active}}</td>
+          <td *ngIf="rec._id!=globid">
+            <input type="button" value="Delete" class="btn btn-danger" (click)="funDel(rec._id)">
+        
+          &nbsp;
+            <input type="button" value="Update" class="btn btn-warning" (click)="funUpdate({_id:rec._id,cname:rec.cname})">
+          </td>
+      </tr>
+    </table>
+    <div style="margin-left:410px;">
+      <pagination-controls (pageChange)=" pn = $event"></pagination-controls>
+    </div>
+    <form name="ffr11" #fr="ngForm">
+      <ng-template #temp>
+        <td>{{globid}}</td>
+        <td>
+          <input type="text" class="form-control" [(ngModel)]="editcnm" name="upt1" #uptxt="ngModel" required>
+          <td>{{active}}</td>
+          <!-- <td>
+            <input type="button" value="Update" class="btn btn-danger" (click)="funDel(rec._id)">
+          </td> -->
+          <td>
+            <input type="button" value="Save" class="btn btn-success" (click)="funSave(fr)">&nbsp;
+            <input type="button" value="Cancel" class="btn btn-primary" (click)="globid=0">
+          </td>
+      </ng-template>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,84 @@
+<div class="container-fliud" style="margin-left: 20px;">
+    <h1 id="sbcat">Add Sub Categories</h1>
+    <div id="subcatdiv">
+        <form name="frmsubcat" id="subcatfrm" #frm2="ngForm">
+            <select name="scat" id="scatselc" [(ngModel)]="cid" #s1="ngModel" required class="form-control txt1">
+                <option value="">---Select Category---</option>
+
+                <option *ngFor="let sel of catrec1" value="{{sel._id}}">{{sel.cname}}</option>
+            </select>
+            <span *ngIf="s1.errors && s1.errors.required"> {{msg1}}</span>
+            <br>
+            <br>
+            <input type="text" id="scate" class="form-control txt1" placeholder="Sub Cat Name" name="subcatg" [(ngModel)]="scnm" #scn="ngModel"
+                required>
+            <span *ngIf="scn.errors && scn.errors.required"> {{msg2}}</span>
+            <br>
+            <br>
+            <div class="row">
+                <div class="col-md-2">
+                    <input type="button" value="Add Sub Cat" (click)="funSubCat(frm2)" class="form-control btnprd" style="width:150px;border:2px solid #0C68A7;border-radius:0px;">
+                </div>
+                <div class="col-md-2" style="margin-left:-20px;">
+                    <form action="" class="search-form">
+                        <div class="form-group has-feedback">
+                            <label for="search" class="sr-only">Search</label>
+                            <input type="text" class="form-control" [(ngModel)]="subsrch" name="search" id="search" placeholder="search">
+                            <span class="glyphicon glyphicon-search form-control-feedback"></span>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <table class="table table-bordered tbl1">
+        <tr>
+
+            <th>ID</th>
+            <th>Cat Name</th>
+            <th (click)="scatSort('scatname')">SubCName
+                <span class="glyphicon sort-icon spn" [ngClass]="{'glyphicon-chevron-up':scord,'glyphicon-chevron-down':!scord}">
+                </span>
+            </th>
+            <th>Status</th>
+
+            <th>Update/Delete</th>
+        </tr>
+        <tr *ngFor="let y of getre | orderBy:keyval:scord | filter:subsrch | paginate:{itemsPerPage:10 ,currentPage:spn};let i='index'">
+            <td *ngIf="y._id!=glid;else temp">{{i+1}}</td>
+            <td *ngIf="y._id!=glid">{{y.cname}}</td>
+            <td *ngIf="y._id!=glid">{{y.scatname}}</td>
+            <td *ngIf="y._id!=glid">{{y.active}}</td>
+            <td *ngIf="y._id!=glid">
+                <input type="button" value="Delete" class="btn btn-danger" (click)="funDell(y._id)"> &nbsp;
+                <input type="button" value="Update" class="btn btn-warning" (click)="funUpdt(y)">
+            </td>
+        </tr>
+    </table>
+    <div style="margin-left:410px;">
+        <pagination-controls (pageChange)=" spn = $event"></pagination-controls>
+    </div>
+</div>
+<form name="fffr" #fr="ngForm">
+    <ng-template #temp>
+        <td>{{glid}}</td>
+        <td>
+            <select [(ngModel)]="catnm" class="form-control" #drrp1="ngModel" name="ddrp" name="n2" required>
+                <option>---Select--</option>
+                <option *ngFor="let sel of catrec1" value="{{sel._id}}">{{sel.cname}}</option>
+            </select>
+
+        </td>
+
+        <td>
+            <input type="text" class="form-control" [(ngModel)]="scupd" name="n1" #nmm="ngModel" required>
+        </td>
+        <td>{{active}}</td>
+        <td>
+            <input type="button" value="Save" class="btn btn-success" (click)="funSubSave(fr)" name="n4">&nbsp;
+            <input type="button" value="Cancel" class="btn btn-primary" (click)="glid=0" name="n5">
+        </td>
+
+    </ng-template>
+</form>

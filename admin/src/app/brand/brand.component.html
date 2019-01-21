@@ -1,0 +1,113 @@
+<div class="container-fliud" style="margin-left: 20px;">
+    <h1 id="brshad">Add Brands</h1>
+    <div id="brddiv">
+        <form name="frmbrd" id="brdfrm" #frm3="ngForm">
+            <select name="catid" id="bcatag" [(ngModel)]="chid" (change)="funChange()" class="form-control txt1" #bbb="ngModel" required>
+                <option value="">---Select Category---</option>
+                <option *ngFor="let c of catrec" value="{{c._id}}">{{c.cname}}</option>
+            </select>
+            <span *ngIf="bbb.errors && bbb.errors.required">{{msg1}}</span>
+            <br>
+            <br>
+            <select name="scatid" id="bscatag" [(ngModel)]="scid" (change)="funSsub()" class="form-control txt1" #bbb1="ngModel" required>
+                <option value="">---Select Subcat---</option>
+                <option *ngFor="let sc of subcatrec" value="{{sc._id}}">{{sc.scatname}}</option>
+            </select>
+            <span *ngIf="bbb1.errors && bbb1.errors.required">{{msg2}}</span>
+            <br>
+            <br>
+            <select name="scatid" id="bscatag" [(ngModel)]="sscid" class="form-control txt1" #bbb11="ngModel" required>
+                <option value="">---Select SubSubcat---</option>
+                <option *ngFor="let ssc of ssubrec" value="{{ssc._id}}">{{ssc.subscatname}}</option>
+            </select>
+            <span *ngIf="bbb11.errors && bbb11.errors.required">{{mmsg4}}</span>
+            <br>
+            <br>
+            <input type="text" id="brd" class="form-control txt1" placeholder="Brand Name" name="brnd" [(ngModel)]="bname" #bnm="ngModel"
+                required>
+            <span *ngIf="bnm.errors && bnm.errors.required"> {{msg3}}</span>
+            <br>
+            <br>
+            <div class="row">
+                <div class="col-md-2">
+                    <input type="button" class="form-control brdbtn" value="Add Brand" (click)="funBrand(frm3)">
+                </div>
+                <div class="col-md-2" style="margin-left:-20px;">
+                    <form action="" class="search-form">
+                        <div class="form-group has-feedback">
+                            <label for="search" class="sr-only">Search</label>
+                            <input type="text" class="form-control" [(ngModel)]="brdsrch" name="search" id="search" placeholder="search">
+                            <span class="glyphicon glyphicon-search form-control-feedback"></span>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </form>
+        <div>
+            <table class="table table-bordered tbl1">
+                <tr>
+                    <th>ID</th>
+                    <th (click)="brnsSort('cname')">Category </th>
+                    <th>Sub Category</th>
+                    <th>SubSub Category</th>
+                    <th (click)="brnsSort('Brand')">Brand
+                        <span class="glyphicon sort-icon spn" [ngClass]="{'glyphicon-chevron-up':bord,'glyphicon-chevron-down':!bord}"></span>
+                    </th>
+                    <th>Status</th>
+                    <th> Delete/Update</th>
+                </tr>
+                <tr *ngFor="let brd of brec | orderBy:keyval:bord | filter:brdsrch | paginate:{itemsPerPage:10,currentPage:bpn};let j='index'">
+                    <td *ngIf="brd._id!=bgloid;else btemp">{{j+1}}</td>
+                    <td *ngIf="brd._id!=bgloid">{{brd.cname}}</td>
+                    <td *ngIf="brd._id!=bgloid">{{brd.scatname}}</td>
+                    <td *ngIf="brd._id!=bgloid">{{brd.subscatname}}</td>
+                    <td *ngIf="brd._id!=bgloid">{{brd.Brand}}</td>
+                    <td *ngIf="brd._id!=bgloid">{{brd.active}}</td>
+                    <td *ngIf="brd._id!=bgloid">
+                        <input type="button" value="Delete" class="btn btn-danger" (click)="funBdell(brd._id)">
+                   &nbsp;
+                        <input type="button" value="Update" class="btn btn-warning" (click)="brandUpd(brd)">
+                    </td>
+                </tr>
+            </table>
+            <div style="margin-left:410px;">
+                <pagination-controls (pageChange)=" bpn = $event"></pagination-controls>
+            </div>
+        </div>
+    </div>
+</div>
+<form name="fm12" #fmm="ngForm">
+    <ng-template #btemp>
+        <td>{{bgloid}}</td>
+        <td>
+            <select name="sell1" class="form-control" [(ngModel)]="cat" (change)="cnFunn()" name="br3" #btxt3="ngModel" required>
+                <!-- <option value="">-Select-</option> -->
+                <option *ngFor="let scc of catrec" value="{{scc._id}}">{{scc.cname}}</option>
+            </select>
+        </td>
+        <td>
+            <select name="sell2" class="form-control" [(ngModel)]="subcat" (change)="chSsub()" name="br2" #btxt2="ngModel" required>
+                <!-- <option value="">-Select-</option> -->
+                <option value="{{sb._id}}" *ngFor="let sb of subcatrec1">
+                    {{sb.scatname}}
+                </option>
+            </select>
+            <td>
+            <select name="sell3" class="form-control" [(ngModel)]="subscat" name="br4" #btxt4="ngModel" required>
+                <!-- <option value="">-Select-</option> -->
+                <option value="{{ssb._id}}" *ngFor="let ssb of ssubrecd">
+                    {{ssb.subscatname}}
+                </option>
+            </select>
+        
+        </td>
+        <td>
+            <input type="text" class="form-control" [(ngModel)]="bupdt" name="br1" #btxt1="ngModel" required>
+        </td>
+        <td>{{active}}</td>
+        <td>
+            <input type="button" value="Save" class="btn btn-success" (click)="brdSave(fmm)">&nbsp;
+            <input type="button" value="Cancel" class="btn btn-primary" (click)="bgloid=0">
+        </td>
+    </ng-template>
+</form>

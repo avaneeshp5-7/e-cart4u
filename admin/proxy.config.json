@@ -1,0 +1,30 @@
+{
+  "/category/*":{  
+    "target":"http://localhost:4444",
+    "secure":true
+  },
+  "/subcat/*":{
+    "target":"http://localhost:4444",
+    "secure":true
+  },
+  "/ssubcat/*":{
+    "target":"http://localhost:4444",
+    "secure":true
+  },
+  "/brand/*":{
+    "target":"http://localhost:4444",
+    "secure":true
+  },
+  "/poduct/*":{
+    "target":"http://localhost:4444",
+    "secure":true
+  }, 
+  "/bus/*":{
+    "target":"http://localhost:4444",
+    "secure":true
+  } ,
+  "/log/*":{
+    "target":"http://localhost:4444",
+    "secure":true
+  }  
+}
